@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Specifications</title>
+    <style>
+        body{
+            background-color: skyblue;
+            text-align: center;
+        }
+        select, input {
+        width: 250px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome</h1>
+    <h2>Laptop Price Predictor</h2>
+
+    <form action="/Predict_Price" method="POST">
+
+        <label for="company">Company: </label><br>
+        <select name="company" method="GET" action="/">
+            {% for company in company %}
+                <option value="{{company}}" SELECTED>{{company}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="typename">Type: </label><br>
+        <select name="typename" method="GET" action="/">
+            {% for typename in typename %}
+                <option value="{{typename}}" SELECTED>{{typename}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="inch">Inches: </label><br>
+        <input type="text" name="inch"><br><br>
+
+        <label for="cpu">CPU: </label><br>
+        <select name="cpu" method="GET" action="/">
+            {% for cpu in cpu %}
+                <option value="{{cpu}}" SELECTED>{{cpu}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="ram">RAM: </label><br>
+        <select name="ram" method="GET" action="/">
+            {% for ram in ram %}
+                <option value="{{ram}}" SELECTED>{{ram}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="gpu">GPU: </label><br>
+        <select name="gpu" method="GET" action="/">
+            {% for gpu in gpu %}
+                <option value="{{gpu}}" SELECTED>{{gpu}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="os">Operating System: </label><br>
+        <select name="os" method="GET" action="/">
+            {% for os in os %}
+                <option value="{{os}}" SELECTED>{{os}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="weight">Weight: </label><br>
+        <input type="text" name="weight"><br><br>
+
+        <label for="fhd">FHD: </label><br>
+        <select name="fhd" method="GET" action="/">
+            {% for fhd in fhd %}
+                <option value="{{fhd}}" SELECTED>{{fhd}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="ips">IPS: </label><br>
+        <select name="ips" method="GET" action="/">
+            {% for ips in ips %}
+                <option value="{{ips}}" SELECTED>{{ips}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="touchscreen">Touchscreen: </label><br>
+        <select name="touchscreen" method="GET" action="/">
+            {% for touchscreen in touchscreen %}
+                <option value="{{touchscreen}}" SELECTED>{{touchscreen}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="qhd">QHD: </label><br>
+        <select name="qhd" method="GET" action="/">
+            {% for qhd in qhd %}
+                <option value="{{qhd}}" SELECTED>{{qhd}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="fourk_uhd">4k UHD: </label><br>
+        <select name="fourk_uhd" method="GET" action="/">
+            {% for fourk_uhd in fourk_uhd %}
+                <option value="{{fourk_uhd}}" SELECTED>{{fourk_uhd}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="retina">Retina Display: </label><br>
+        <select name="retina" method="GET" action="/">
+            {% for retina in retina %}
+                <option value="{{retina}}" SELECTED>{{retina}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <!--
+        <label for="x_res">X_resolution: </label><br>
+        <input type="text" name="x_res"><br><br>
+        
+        <label for="y_res">Y_resolution: </label><br>
+        <input type="text" name="y_res"><br><br>
+        -->
+        <label for="resolution">Resolution: </label><br>
+        <select name="resolution" method="GET" action="/">
+            {% for resolution in resolution %}
+                <option value="{{resolution}}" SELECTED>{{resolution}}</option>"
+            {% endfor %}
+        </select><br><br>
+
+        <label for="ssd">SSD: </label><br>
+        <input type="text" name="ssd"><br><br>
+
+        <label for="hdd">HDD: </label><br>
+        <input type="text" name="hdd"><br><br>
+        
+        <!--
+        <label for="hybrid">Hybrid: </label><br>
+        <input type="text" name="hybrid"><br><br>
+        -->
+
+        <label for="flash">Flash: </label><br>
+        <input type="text" name="flash"><br><br>
+
+        <input type="submit" value="Submit">
+
+    </form>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title>Select Specifications</title>
+    <style>
+        body {
+            background-color: skyblue;
+            text-align: center;
+        }
+
+        select, input {
+            width: 250px;
+        }
+
+        @media screen and (min-width: 480px) {
+        .col-lg-2 {
+            text-align: right;
+        }
+        }
+
+        @media screen and (min-width: 480px) {
+        .col-lg-4 {
+            text-align: left;
+        }
+        }
+
+        label {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome</h1>
+    <h2>Laptop Price Predictor</h2>
+
+    <form action="/Predict_Price" method="POST">
+   
+        <div class="container">
+            <!--<div class="jumbotron">
+            <h1>My First Bootstrap Page</h1>
+            <p>Resize this responsive page to see the effect!</p>
+            </div>-->
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="company">Company : </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="company" method="GET" action="/">
+                        {% for company in company %}
+                        <option value="{{company}}" SELECTED>{{company}}</option>"
+                        {% endfor %}
+                    </select>
+
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="typename">Type : </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="typename" method="GET" action="/">
+                        {% for typename in typename %}
+                        <option value="{{typename}}" SELECTED>{{typename}}</option>"
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="cpu">CPU : </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="cpu" method="GET" action="/">
+                        {% for cpu in cpu %}
+                        <option value="{{cpu}}" SELECTED>{{cpu}}</option>"
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="inch">Inches: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <input class="form-control" type="text" name="inch">
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="ram">RAM: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="ram" method="GET" action="/">
+                        {% for ram in ram %}
+                        <option value="{{ram}}" SELECTED>{{ram}}</option>"
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="gpu">GPU: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="gpu" method="GET" action="/">
+                        {% for gpu in gpu %}
+                        <option value="{{gpu}}" SELECTED>{{gpu}}</option>"
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="os">Operating System: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="os" method="GET" action="/">
+                        {% for os in os %}
+                        <option value="{{os}}" SELECTED>{{os}}</option>"
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="weight">Weight: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <input class="form-control" type="text" name="weight">
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="fhd">FHD: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="fhd" method="GET" action="/">
+                        {% for fhd in fhd %}
+                        <option value="{{fhd}}" SELECTED>{{fhd}}</option>"
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="ips">IPS: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="ips" method="GET" action="/">
+                        {% for ips in ips %}
+                        <option value="{{ips}}" SELECTED>{{ips}}</option>"
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="touchscreen">Touchscreen: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="touchscreen" method="GET" action="/">
+                        {% for touchscreen in touchscreen %}
+                        <option value="{{touchscreen}}" SELECTED>{{touchscreen}}</option>"
+                        {% endfor %}
+                    </select>
+                    </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="qhd">QHD: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="qhd" method="GET" action="/">
+                        {% for qhd in qhd %}
+                        <option value="{{qhd}}" SELECTED>{{qhd}}</option>"
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="fourk_uhd">4k UHD: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="fourk_uhd" method="GET" action="/">
+                        {% for fourk_uhd in fourk_uhd %}
+                        <option value="{{fourk_uhd}}" SELECTED>{{fourk_uhd}}</option>"
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="retina">Retina Display: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <select class="form-control" name="retina" method="GET" action="/">
+                        {% for retina in retina %}
+                        <option value="{{retina}}" SELECTED>{{retina}}</option>"
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="x_res">X_resolution: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <input class="form-control" type="text" name="x_res">
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                        <label for="y_res">Y_resolution: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <input class="form-control" type="text" name="y_res">
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="ssd">SSD: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <input class="form-control" type="text" name="ssd">
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="hdd">HDD: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <input class="form-control" type="text" name="hdd">
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="hybrid">Hybrid: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <input class="form-control" type="text" name="hybrid">
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-3">
+                </div>
+                <div class="col col-lg-2">
+                    <label for="flash">Flash: </label>
+                </div>
+
+                <div class="col col-lg-4">
+                    <input class="form-control" type="text" name="flash">
+                </div>
+                <div class="col col-lg-3">
+                </div>
+            </div>
+            <br>
+<!--         <input width="50px" type="submit" value="Submit" class="btn btn-primary"> -->   
+     <button type="submit" style="width: 100px;" class="btn btn-primary">Submit</button>
+        <br>
+        <br>
+        <br>
+    </form>
+</body>
+</html>
