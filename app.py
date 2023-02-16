@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request
 from joblib import load
 import pickle
-import pandas as pd
 import numpy as np
-
+from psutil import users
 
 app = Flask(__name__)
 
@@ -16,69 +15,58 @@ def hello():
     cpu = sorted(data_dev['Cpu'].unique().tolist())
     ram = sorted(data_dev['Ram'].unique().tolist())
     gpu = sorted(data_dev['Gpu'].unique().tolist())
-    os = sorted(data_dev['OpSys'].unique().tolist())
+    opsys = sorted(data_dev['OpSys'].unique().tolist())
     resolution = pickle.load(open('Resolution_catg.pkl','rb'))
 
-    fhd = ips = touchscreen = qhd = fourk_uhd = retina = ['Yes', 'No']
+    display_dict = {'fhd':'FHD', 'qhd':'QHD', '4kuhd':'4K UHD', 'retina display':'Retina Display'}
 
-    return render_template('home.html', company = company, typename = typename, cpu = cpu, ram = ram, 
-    gpu = gpu, os = os, fhd = fhd, ips = ips, touchscreen = touchscreen, qhd = qhd, fourk_uhd = fourk_uhd,
-    retina = retina, resolution = resolution)
+    ips = touchscreen = ['Yes', 'No']
+
+    return render_template('home3.html', company = company, typename = typename, cpu = cpu, ram = ram, gpu = gpu, opsys = opsys, display = display_dict.values(), ips = ips, touchscreen = touchscreen, resolution = resolution)
 
 
 @app.route('/Predict_Price',methods=['POST','GET'])
 def predict():
-    pipeline = pickle.load(open('pipeline.pkl','rb'))
-    
+
+    # We have to provide the features as per below  sequence
+    # 'Company' | 'TypeName' | 'Inches' | 'Cpu' | 'Ram' | 'Gpu' | 'OpSys' | 'Weight' | 'IPS' | 'Touchscreen' | 'FHD' | 'QHD' | '4KUHD' | 'Retina Display' | 'Resolution' | 'SSD' | 'HDD' | 'Flash'
+
+    data_dev = pickle.load(open('Train_data.pkl','rb'))
+    data_dev_col_sequence = data_dev.columns.to_list()
+    train_col_count = len(data_dev_col_sequence) 
+
     feat = request.form.to_dict()
-    # print('\n\n FEATURE: ', feat, '\n\n')
-    # print('FEATURE:', feat)
 
-    if feat['fhd'] == 'No':
-        feat['fhd'] = 0
-    else:
-        feat['fhd'] = 1
+    display_arr = [0 for i in range(4)]
+    display_dict = {'fhd':'FHD', 'qhd':'QHD', '4kuhd':'4K UHD', 'retina display':'Retina Display'}
+    display_arr_update_fag = 0
+    user_data = []
+    for col in data_dev_col_sequence:
+        col = col.lower()
+        if col in display_dict.keys(): 
+            if display_arr_update_fag == 0:
+                idx = list(display_dict.values()).index(feat['display'])
+                display_arr[idx] = 1
+                user_data = user_data + display_arr
+                display_arr_update_fag = 1        
 
-    if feat['ips'] == 'No':
-        feat['ips'] = 0
-    else:
-        feat['ips'] = 1
+        elif col in ['ips', 'touchscreen']:
+            if feat[col] == 'Yes':
+                user_data.append(1)
+            else:
+                user_data.append(0)
 
-    if feat['touchscreen'] == 'No':
-        feat['touchscreen'] = 0
-    else:
-        feat['touchscreen'] = 1
+        else:
+            user_data.append(feat[col])           
 
-    if feat['qhd'] == 'No':
-        feat['qhd'] = 0
-    else:
-        feat['qhd'] = 1
+    print('USER DATA',user_data)
 
-    if feat['fourk_uhd'] == 'No':
-        feat['fourk_uhd'] = 0
-    else:
-        feat['fourk_uhd'] = 1
+    feat_to_feed = np.array(user_data)
+    feat_to_feed = feat_to_feed.reshape(1,train_col_count)
 
-    if feat['retina'] == 'No':
-        feat['retina'] = 0
-    else:
-        feat['retina'] = 1
-
-    combined_resolution = feat['resolution']
-    splited_resolution = combined_resolution.split('x')
-
-
-    feat = list(feat.values())
-    feat[14] = int(splited_resolution[0])
-    feat.insert(15, int(splited_resolution[1]))
-    # print(feat)
-
-    feat_to_feed = np.array(feat)
-    feat_to_feed = feat_to_feed.reshape(1,19)
-
+    pipeline = pickle.load(open('pipeline.pkl','rb'))
     result = pipeline.predict(feat_to_feed)
     
-
     price = 'Rs. ' + str(round(result[0],2))
     return render_template('output.html',result = price)
 
