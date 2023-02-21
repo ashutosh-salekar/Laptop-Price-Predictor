@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 from joblib import load
 import pickle
 import numpy as np
-from psutil import users
 
 app = Flask(__name__)
 
@@ -22,7 +21,7 @@ def hello():
 
     ips = touchscreen = ['Yes', 'No']
 
-    return render_template('home3.html', company = company, typename = typename, cpu = cpu, ram = ram, gpu = gpu, opsys = opsys, display = display_dict.values(), ips = ips, touchscreen = touchscreen, resolution = resolution)
+    return render_template('home.html', company = company, typename = typename, cpu = cpu, ram = ram, gpu = gpu, opsys = opsys, display = display_dict.values(), ips = ips, touchscreen = touchscreen, resolution = resolution)
 
 
 @app.route('/Predict_Price',methods=['POST','GET'])
@@ -59,7 +58,7 @@ def predict():
         else:
             user_data.append(feat[col])           
 
-    print('USER DATA',user_data)
+    # print('USER DATA',user_data)
 
     feat_to_feed = np.array(user_data)
     feat_to_feed = feat_to_feed.reshape(1,train_col_count)
